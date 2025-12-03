@@ -108,9 +108,7 @@ export const NavbarTop = () => {
           href="/dashboard"
           className="sm:flex hidden"
         >
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-blue-400 hover:scale-105">
-            <span className="text-2xl font-bold text-white drop-shadow-md">Proximity Link</span>
-          </div>
+          <span className="text-3xl font-bold text-blue-400 hover:text-white transition-colors">Proximity Link</span>
         </Link>
         {/* โลโก้แบบไอคอน (Mobile) */}
         <Link
@@ -130,39 +128,43 @@ export const NavbarTop = () => {
         </Link>
       </div>
 
-      {/* ส่วนกลาง: ช่องค้นหา (พร้อม Dropdown Results) */}
-      <div ref={searchRef} className="flex-1 flex justify-center relative">
-        <input
-          type="text"
-          placeholder="ค้นหากลุ่ม..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="px-4 py-2 rounded-full bg-white w-full max-w-md shadow-sm text-gray-700 focus:ring-2 focus:ring-yellow-400 outline-none"
-        />
-        
-        {/* Dropdown แสดงผลลัพธ์การค้นหา */}
-        {groupResults.length > 0 && (
-          <ul className="absolute top-full left-0 mt-2 w-full bg-white border rounded-xl shadow-xl z-50 max-w-md">
-            {groupResults.map((g) => (
-              <li key={g.id} className="hover:bg-gray-100 rounded-lg">
-                <Link
-                  href={`/groups/${g.id}`}
-                  className="block px-4 py-2"
-                  onClick={() => {
-                    setGroupResults([]); // เคลียร์ผลลัพธ์หลังคลิก
-                    setSearchTerm(""); // เคลียร์คำค้นหา
-                  }}
-                >
-                  {g.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {/* ส่วนกลาง: ว่าง */}
+      <div className="flex-1"></div>
 
-      {/* ส่วนขวา: รูปโปรไฟล์ */}
-      <div className="flex-1 flex justify-end items-center gap-5">
+      {/* ส่วนขวา: ช่องค้นหาและรูปโปรไฟล์ */}
+      <div className="flex items-center gap-4">
+        {/* ช่องค้นหา */}
+        <div ref={searchRef} className="relative w-64">
+          <input
+            type="text"
+            placeholder="ค้นหากลุ่ม..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 rounded-full bg-white shadow-md text-gray-700 text-sm focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 outline-none transition-all"
+          />
+          
+          {/* Dropdown แสดงผลลัพธ์การค้นหา */}
+          {groupResults.length > 0 && (
+            <ul className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              {groupResults.map((g, index) => (
+                <li key={g.id} className={`hover:bg-blue-50 transition-colors ${index === 0 ? 'rounded-t-lg' : ''} ${index === groupResults.length - 1 ? 'rounded-b-lg' : ''}`}>
+                  <Link
+                    href={`/groups/${g.id}`}
+                    className="block px-4 py-2.5 text-gray-700 hover:text-blue-600 text-sm"
+                    onClick={() => {
+                      setGroupResults([]); // เคลียร์ผลลัพธ์หลังคลิก
+                      setSearchTerm(""); // เคลียร์คำค้นหา
+                    }}
+                  >
+                    {g.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* รูปโปรไฟล์ */}
         <Link href="/profile">
           <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-yellow-400 bg-gray-100 flex items-center justify-center">
             {avatar ? (
