@@ -394,7 +394,7 @@ export default function GroupDetailPage() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8 bg-gray-50 min-h-screen">
+    <div className="max-w-6xl mx-auto p-6 space-y-8 bg-gray-50 min-h-screen mt-20">
       
       {/* Modal รูปภาพ */}
       {showImageModal && <ImagePreviewModal />}
